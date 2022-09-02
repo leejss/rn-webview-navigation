@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import WebViewContainer from "./components/WebViewContainer";
+import { createStackNavigator } from "@react-navigation/stack";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import "react-native-gesture-handler";
+
+export type StackParamList = {
+  Webview: {
+    url: string;
+  };
+};
+
+const Stack = createStackNavigator<StackParamList>();
+// const Stack = createNativeStackNavigator<StackParamList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          initialParams={{ url: "/" }}
+          name="Webview"
+          component={WebViewContainer}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
